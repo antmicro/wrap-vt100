@@ -1,8 +1,6 @@
 [package]
+edition = "2021"
 name = "wrap-vt100"
 version = "0.1.0"
-edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+ansi-parser = "0.8.0"
