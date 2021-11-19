@@ -6,37 +6,7 @@ use ansi_parser::{AnsiParser, Output};
 
 const RESET_CODE: &str = "\x1b[0m";
 
-struct State {
-    fgcolor: String,
-    bgcolor: String,
-    bold: bool,
-    italic: bool,
-    underline: bool,
-    inverse: bool,
-}
-
-impl State {
-    fn new() -> Self {
-        State {
-            fgcolor: String::new(),
-            bgcolor: String::new(),
-            bold: false,
-            italic: false,
-            underline: false,
-            inverse: false,
-        }
-    }
-
-    fn current_state(&self) -> String {
-        format!("")
-    }
-
-    fn wrap_line(&self, line: &str) -> String {
-        format!("{}{}{}", self.current_state(), line, RESET_CODE)
-    }
-}
-
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut state = Vec::new();
 
     let stdin = io::stdin();
@@ -50,7 +20,7 @@ fn main() {
                 .join("")
         );
 
-        let line = line.unwrap();
+        let line = line?;
         let parsed = line.ansi_parse();
         for block in parsed.into_iter() {
             match block {
@@ -64,4 +34,6 @@ fn main() {
         // Write reset code at the end of line
         println!("{}", RESET_CODE);
     }
+
+    Ok(())
 }
