@@ -1,6 +1,5 @@
 # wrap-vt100
-Simple binary to allow prepending and appending input lines
-without affecting input stream escape codes.
+Simple application to allow prepending and appending input lines without affecting input stream escape codes.
 
 # Usage
 ```
