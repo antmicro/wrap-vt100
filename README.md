@@ -12,5 +12,5 @@ ls target/release/wrap-vt100
 ```
 
 # Examples
-Full usable examples can be found in `test.sh` and `test2.sh` scripts.
+Examples can be found in `test.sh`
 
