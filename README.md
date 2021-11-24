@@ -26,7 +26,7 @@ Additionally, a subprocess-based [Python wrapper](wrap_vt100.py) is provided.
 The example below will print a line with the bold red ANSI code in the beginning.
 Each line will be prefixed and suffixed with some colored string.
 
-```
+```sh
 echo -e '\x1b[1;31mThis red\nbold text\nhas lines' | cargo run --quiet | cargo run --example line-appender --quiet -- "$(echo -e "\x1b[1;33mLOG:\x1b[0m ")" "$(echo -e "\t\x1b[1;32mEOL\x1b[0m")"
 ```
 
@@ -42,7 +42,7 @@ Even though only the first line contains the escape sequence, the state is prese
 
 The second example will show the directory listing with colored output.
 
-```
+```sh
 ls --color=always | cargo run --quiet | cargo run --example line-appender --quiet -- "$(echo -e "\x1b[1;32mLOG:\x1b[0m ")"
 ```
 
