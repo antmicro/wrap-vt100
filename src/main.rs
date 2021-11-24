@@ -27,7 +27,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Output::TextBlock(text) => print!("{}", text),
                 Output::Escape(code) => {
                     print!("{}", code);
-                    state.push(code);
+
+                    // Clear state vector if a reset sequence occurs
+                    if code.to_string() == RESET_CODE {
+                        state.clear()
+                    } else {
+                        state.push(code);
+                    }
                 }
             }
         }
