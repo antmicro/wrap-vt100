@@ -23,26 +23,28 @@ impl EscapeCodeState {
 
     fn handle_ansi_sequence(&mut self, code: AnsiSequence) {
         // Clear state vector if a reset sequence occurs
-        if code.to_string() == RESET_CODE {
-            self.foreground = None;
-            self.background = None;
-            self.other.clear();
-        } else {
-            match code {
-                AnsiSequence::SetGraphicsMode(ref vec) => match vec.len() {
-                    2 => match vec[1] {
-                        x if (30..=37).contains(&x) => {
-                            self.foreground = Some(code);
-                        }
-                        x if (40..=47).contains(&x) => {
-                            self.background = Some(code);
-                        }
-                        _ => self.other.push(code),
-                    },
+        match code {
+            AnsiSequence::SetGraphicsMode(ref vec) => match vec.len() {
+                // Reset code
+                1 if vec[0] == 0 => {
+                    self.foreground = None;
+                    self.background = None;
+                    self.other.clear();
+                }
+                // Simple foreground or background color
+                2 if vec[0] == 1 => match vec[1] {
+                    x if (30..=37).contains(&x) => {
+                        self.foreground = Some(code);
+                    }
+                    x if (40..=47).contains(&x) => {
+                        self.background = Some(code);
+                    }
                     _ => self.other.push(code),
                 },
                 _ => self.other.push(code),
-            }
+            },
+            // Something not handled specially
+            _ => self.other.push(code),
         }
     }
 }
