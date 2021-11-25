@@ -1,2 +1,6 @@
+.idea/
+.vscode/
+.vs/
+
 /target
 **/__pycache__
