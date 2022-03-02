@@ -43,8 +43,8 @@ impl EscapeCodeState {
                 },
                 _ => self.other.push(code),
             },
-            // Something not handled specially
-            _ => self.other.push(code),
+            // Ignore sequences not related to colors/reseting. 
+            _ => ()
         }
     }
 }
