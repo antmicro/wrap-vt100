@@ -8,10 +8,6 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v3
-      - name: Install dependencies
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y > /dev/null 2> /dev/null
-          source $HOME/.cargo/env
       - name: Build binary
         run: cargo build --release
       - name: Upload binary
